@@ -10,6 +10,8 @@ const {
   logout,
 } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
+const NotFoundError = require('./utils/not-found-error');
+const userRouter = require('./routes/users');
 
 const { PORT = 3000 } = process.env;
 
@@ -51,7 +53,16 @@ app.post('/signin', celebrate({
   }),
 }), login);
 app.post('/signout', logout);
+
 app.use(auth);
+
+app.use('/', userRouter);
+
+// eslint-disable-next-line no-unused-vars
+app.use((req, res) => {
+  throw new NotFoundError('Запрашиваемый метод не существует');
+});
+
 app.use(errorLogger);
 app.use(errors());
 app.use(errorsHandler);

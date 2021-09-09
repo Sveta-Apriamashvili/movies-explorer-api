@@ -2,10 +2,11 @@ require('dotenv').config();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-// const NotFoundError = require('../utils/not-found-error');
+const NotFoundError = require('../utils/not-found-error');
 const UnauthorizedClientError = require('../utils/unauthorized-client-error');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
+
 const createUser = (req, res, next) => {
   const {
     name, email, password,
@@ -60,8 +61,37 @@ const logout = (req, res, next) => {
   });
 };
 
+const getUser = (req, res, next) => {
+  const id = req.user._id;
+  User.findById(id)
+    .then((user) => {
+      if (!user) throw new NotFoundError('Пользователя не существует');
+
+      return res.send(user);
+    })
+    .catch(next);
+};
+
+const updateUser = (req, res, next) => {
+  const { name, email } = req.body;
+
+  return User.findByIdAndUpdate(
+    req.user._id,
+    { name, email },
+    { new: true, runValidators: true },
+  )
+    .then((user) => {
+      if (!user) throw new NotFoundError('Пользователя не существует');
+
+      return res.send(user);
+    })
+    .catch(next);
+};
+
 module.exports = {
   createUser,
   login,
   logout,
+  getUser,
+  updateUser,
 };

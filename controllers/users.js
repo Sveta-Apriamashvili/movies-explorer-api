@@ -49,8 +49,19 @@ const login = (req, res, next) => {
     })
     .catch(next);
 };
+// eslint-disable-next-line no-unused-vars
+const logout = (req, res, next) => {
+  res.cookie('jwt', 'jwt.token.revoked', {
+    httpOnly: true,
+    sameSite: true,
+    maxAge: -1,
+  }).send({
+    message: 'Сессия была успешно завершена',
+  });
+};
 
 module.exports = {
   createUser,
   login,
+  logout,
 };

@@ -7,12 +7,15 @@ const { celebrate, Joi, errors } = require('celebrate');
 const {
   createUser,
   login,
+  logout,
 } = require('./controllers/users');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const { PORT = 3000 } = process.env;
 
 const app = express();
+const auth = require('./middlewares/auth');
+
 const corsOptions = {
   origin: ['https://study.movies.nomoredomains.club',
     'http://study.movies.nomoredomains.club',
@@ -47,7 +50,8 @@ app.post('/signin', celebrate({
     password: Joi.string().required(),
   }),
 }), login);
-
+app.post('/signout', logout);
+app.use(auth);
 app.use(errorLogger);
 app.use(errors());
 app.use(errorsHandler);

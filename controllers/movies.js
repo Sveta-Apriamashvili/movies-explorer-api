@@ -10,10 +10,14 @@ const getMovies = (req, res, next) => {
 };
 
 const createMovie = (req, res, next) => {
-  const { name, link } = req.body;
+  const {
+    country, director, duration, year, description, image, trailer, nameRU, nameEN,
+  } = req.body;
   const owner = req.user._id;
 
-  return Movie.create({ name, link, owner })
+  return Movie.create({
+    country, director, duration, year, description, image, trailer, nameRU, nameEN, owner,
+  })
     .then((movie) => res.send(movie))
     .catch(next);
 };

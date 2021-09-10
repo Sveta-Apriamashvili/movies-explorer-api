@@ -12,6 +12,7 @@ const {
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const NotFoundError = require('./utils/not-found-error');
 const userRouter = require('./routes/users');
+const movieRouter = require('./routes/movies');
 
 const { PORT = 3000 } = process.env;
 
@@ -57,6 +58,7 @@ app.post('/signout', logout);
 app.use(auth);
 
 app.use('/', userRouter);
+app.use('/', movieRouter);
 
 // eslint-disable-next-line no-unused-vars
 app.use((req, res) => {

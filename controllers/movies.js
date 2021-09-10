@@ -11,12 +11,14 @@ const getMovies = (req, res, next) => {
 
 const createMovie = (req, res, next) => {
   const {
-    country, director, duration, year, description, image, trailer, nameRU, nameEN,
+    // eslint-disable-next-line max-len
+    country, director, duration, year, description, image, trailer, nameRU, nameEN, thumbnail, movieId,
   } = req.body;
   const owner = req.user._id;
 
   return Movie.create({
-    country, director, duration, year, description, image, trailer, nameRU, nameEN, owner,
+    // eslint-disable-next-line max-len
+    country, director, duration, year, description, image, trailer, nameRU, nameEN, owner, thumbnail, movieId,
   })
     .then((movie) => res.send(movie))
     .catch(next);

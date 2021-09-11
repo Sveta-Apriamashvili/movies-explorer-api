@@ -15,6 +15,7 @@ const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 
 const { PORT = 3000 } = process.env;
+const {DB_NAME = 'cockatoo'} = process.env;
 
 const app = express();
 const auth = require('./middlewares/auth');
@@ -30,7 +31,7 @@ const errorsHandler = require('./middlewares/error');
 
 app.use(helmet());
 app.use(cookieParser());
-mongoose.connect('mongodb://localhost:27017/moviesdb', {
+mongoose.connect(`mongodb://localhost:27017/${DB_NAME}`, {
   useNewUrlParser: true,
   // useCreateIndex: true,
   // useFindAndModify: false,

@@ -5,7 +5,7 @@ const ServerError = require('./server-error');
 // Error Names
 const BAD_REQUEST_ERROR_NAME = 'ValidationError';
 const INVALID_ID_ERROR_NAME = 'CastError';
-const MONGO_ERROR_NAME = 'MongoError';
+const MONGO_ERROR_NAME = 'MongoServerError';
 
 const SKIPPED_ERROR_CODES = new Set([401, 403, 404]);
 

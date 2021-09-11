@@ -5,7 +5,6 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const NotFoundError = require('./utils/not-found-error');
 const router = require('./routes/index')
 
 const { PORT = 3000 } = process.env;

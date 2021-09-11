@@ -6,6 +6,7 @@ const {
   login,
   logout,
 } = require('../controllers/users');
+const NotFoundError = require('../utils/not-found-error');
 
 const _unprotectedRoutes = (app) => {
   app.post('/signup', celebrate({

@@ -5,11 +5,11 @@ const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
-const router = require('./routes/index')
-const limiter = require('./middlewares/rate-limiter')
+const router = require('./routes/index');
+const limiter = require('./middlewares/rate-limiter');
 
 const { PORT = 3000 } = process.env;
-const {DB_NAME = 'moviesdb_dev'} = process.env;
+const { DB_NAME = 'moviesdb_dev' } = process.env;
 
 const app = express();
 const auth = require('./middlewares/auth');
@@ -17,10 +17,12 @@ const auth = require('./middlewares/auth');
 limiter.handleRateLimit(app);
 
 const corsOptions = {
-  origin: ['https://study.movies.nomoredomains.club',
+  origin: [
+    'https://study.movies.nomoredomains.club',
     'http://study.movies.nomoredomains.club',
     'localhost:3000',
-    'http://localhost:3000'],
+    'http://localhost:3000',
+  ],
   credentials: true,
 };
 const errorsHandler = require('./middlewares/error');

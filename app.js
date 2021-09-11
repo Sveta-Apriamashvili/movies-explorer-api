@@ -6,12 +6,15 @@ const cookieParser = require('cookie-parser');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const router = require('./routes/index')
+const limiter = require('./middlewares/rate-limiter')
 
 const { PORT = 3000 } = process.env;
 const {DB_NAME = 'moviesdb_dev'} = process.env;
 
 const app = express();
 const auth = require('./middlewares/auth');
+
+limiter.handleRateLimit(app);
 
 const corsOptions = {
   origin: ['https://study.movies.nomoredomains.club',
